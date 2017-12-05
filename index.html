@@ -89,9 +89,7 @@
                 var saida = $("#estados_saida");
                 $.each(arrayEstados, function(index, item) {
                     var uf = ConverterEstados(item);
-                    if (uf != "") {
-                        saida.val( saida.val() + uf + "\n");
-                    }
+                    saida.val( saida.val() + uf + "\n");
                 });
                 return false;
             });
