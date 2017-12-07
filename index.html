@@ -16,55 +16,67 @@
 </head>
 <body>
     <div class="jumbotron">
-      <h1>Conversor: Nome de Estado -> UF</h1>
+      <h1>Conversor: Nome de Estado <-> UF</h1>
     </div>
 
     <div class="form-group">
       <div class="form-row">
 
-      <div class="form-group col-xs-6">
-        <h2>Entrada:</h2>
-        <textarea
-            class="form-control"
-            name="estados_entrada"
-            id="estados_entrada"
-            placeholder="Insira um nome de estado por linha."
-            required="true"
-            rows="15"
-            autofocus="true"
-            ></textarea>
-      </div>
-      <div class="form-group col-xs-6">
-        <h2>Saída:</h2>
-        <textarea
-            class="form-control"
-            name="estados_saida"
-            id="estados_saida"
-            rows="15""
-            ></textarea>
-      </div>
+          <div class="form-group col-xs-6">
+            <h2>Nome:</h2>
+            <textarea
+                class="form-control"
+                name="nomes"
+                id="nomes"
+                placeholder="Insira um nome de estado por linha."
+                required="true"
+                rows="15"
+                autofocus="true"
+                ></textarea>
+          </div>
+    
+          <div class="form-group col-xs-6">
+            <h2>Sigla:</h2>
+            <textarea
+                class="form-control"
+                name="siglas"
+                id="siglas"
+                rows="15""
+                ></textarea>
+          </div>
       
       </div>
     </div>
 
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.0.4/fuse.min.js"></script>
     <script src="./dist/index.js"></script>
     <script>
-        const conversor = conversorEstadoParaSiglaUf.closest;
+        const siglaToNome = s => conversorEstadoParaSiglaUf.Estado[s.toUpperCase()];
+        const nomeToSigla = conversorEstadoParaSiglaUf.closest;
 
-        const estadosEntrada = document.getElementById('estados_entrada');
-        const estadosSaida = document.getElementById('estados_saida');
+        const $nomes = document.getElementById('nomes');
+        const $siglas = document.getElementById('siglas');
 
-        estadosEntrada
+        const update = (entrada, saida, conversor) =>
+            (saida.value = entrada.value.split('\n').map(conversor).join('\n'));
+
+
+        const updateSiglas = () => update($nomes, $siglas, nomeToSigla);
+        const updateNomes  = () => update($siglas, $nomes, siglaToNome);
+
+        $nomes
             .addEventListener('keypress', evt => {
-                // evt.preventDefault();
-
-                const queries = estadosEntrada.value.split('\n');
-
-                estadosSaida.value = queries.map(conversor).join('\n');
+                updateSiglas();
+                if (evt.keyCode === 13)
+                    updateNomes();
             })
 
+        $siglas
+            .addEventListener('keypress', evt => {
+                updateNomes();
+                if (evt.keyCode === 13)
+                    updateSiglas();
+            })
     </script>
 </body>
 </html>

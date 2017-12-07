@@ -40,9 +40,9 @@ export const converterEstado = (() => {
 export const closest = (() => {
   const options = {
     shouldSort: true,
-    threshold: 0.6,
+    threshold: 0.3,
     location: 0,
-    distance: 100,
+    distance: 0,
     maxPatternLength: 32,
     minMatchCharLength: 1,
   };
