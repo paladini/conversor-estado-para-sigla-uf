@@ -8,91 +8,63 @@
   <meta name="description" content="Conversos online de nomes de estado para sigla UF desse respectivo estado, com suporte a conversões em lote.">
   <meta name="author" content="Fernando Paladini">
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=1.0">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
   <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
   <![endif]-->
 </head>
 <body>
+    <div class="jumbotron">
+      <h1>Conversor: Nome de Estado -> UF</h1>
+    </div>
 
-    <h1>Conversor: Nome de Estado -> UF</h1>
+    <div class="form-group">
+      <div class="form-row">
 
-    <form id="meuForm">
+      <div class="form-group col-xs-6">
         <h2>Entrada:</h2>
-        <textarea name="estados_entrada" id="estados_entrada" placeholder="Insira um nome de estado por linha." style="width: 80%;" required="true" rows="15" autofocus="true"></textarea>
-        <br/>
-        <input type="submit" value="Converter!" class="btn_enviar" />
-    </form>
+        <textarea
+            class="form-control"
+            name="estados_entrada"
+            id="estados_entrada"
+            placeholder="Insira um nome de estado por linha."
+            required="true"
+            rows="15"
+            autofocus="true"
+            ></textarea>
+      </div>
+      <div class="form-group col-xs-6">
+        <h2>Saída:</h2>
+        <textarea
+            class="form-control"
+            name="estados_saida"
+            id="estados_saida"
+            rows="15""
+            ></textarea>
+      </div>
+      
+      </div>
+    </div>
 
-    <h2>Saída:</h2>
-    <textarea name="estados_saida" id="estados_saida" rows="15" style="width: 80%;"></textarea>
 
-    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.0.4/fuse.min.js"></script>
+    <script src="./dist/index.js"></script>
     <script>
-        $(document).ready(function(){
-            // Função para converter estados em UF
-            // Baseado em https://gist.github.com/renancouto/3784690
-            var ConverterEstados = function(val) {
-                var data;
+        const conversor = conversorEstadoParaSiglaUf.closest;
 
-                switch (val.toUpperCase()) {
-                    case "ACRE" :					data = "AC";	break;
-                    case "ALAGOAS" :				data = "AL";	break;
-                    case "AMAZONAS" :				data = "AM";	break;
-                    case "AMAPÁ" :					data = "AP";	break;
-                    case "AMAPA" :					data = "AP";	break;
-                    case "BAHIA" :					data = "BA";	break;
-                    case "CEARÁ" :					data = "CE";	break;
-                    case "CEARA" :					data = "CE";	break;
-                    case "DISTRITO FEDERAL" :		data = "DF";	break;
-                    case "ESPÍRITO SANTO" :			data = "ES";	break;
-                    case "ESPIRITO SANTO" :			data = "ES";	break;
-                    case "GOIÁS" :					data = "GO";	break;
-                    case "GOIAS" :					data = "GO";	break;
-                    case "MARANHÃO" :				data = "MA";	break;
-                    case "MARANHAO" :				data = "MA";	break;
-                    case "MINAS GERAIS" :			data = "MG";	break;
-                    case "MATO GROSSO DO SUL" :		data = "MS";	break;
-                    case "MATO GROSSO" :			data = "MT";	break;
-                    case "PARÁ" :					data = "PA";	break;
-                    case "PARA" :					data = "PA";	break;
-                    case "PARAÍBA" :				data = "PB";	break;
-                    case "PARAIBA" :				data = "PB";	break;
-                    case "PERNAMBUCO" :				data = "PE";	break;
-                    case "PIAUÍ" :					data = "PI";	break;
-                    case "PIAUI" :					data = "PI";	break;
-                    case "PARANÁ" :					data = "PR";	break;
-                    case "PARANA" :					data = "PR";	break;
-                    case "RIO DE JANEIRO" :			data = "RJ";	break;
-                    case "RIO GRANDE DO NORTE" :	data = "RN";	break;
-                    case "RONDÔNIA" : 				data = "RO";	break;
-                    case "RONDONIA" : 				data = "RO";	break;
-                    case "RORAIMA" :				data = "RR";	break;
-                    case "RIO GRANDE DO SUL" :		data = "RS";	break;
-                    case "SANTA CATARINA" :			data = "SC";	break;
-                    case "SERGIPE" :				data = "SE";	break;
-                    case "SÃO PAULO" :				data = "SP";	break;
-                    case "SAO PAULO" :				data = "SP";	break;
-                    case "TOCANTÍNS" :				data = "TO";	break;
-                    case "TOCANTINS" :				data = "TO";	break;
-                    default:                        data = "";      break;
-                }
-                return data;
-            };
+        const estadosEntrada = document.getElementById('estados_entrada');
+        const estadosSaida = document.getElementById('estados_saida');
 
-            // Quando submeter o form de entrada
-            $("#meuForm").on("submit", function(e){
-                e.preventDefault();
-                var arrayEstados = $('#estados_entrada').val().split('\n');
-                var saida = $("#estados_saida");
-                $.each(arrayEstados, function(index, item) {
-                    var uf = ConverterEstados(item);
-                    saida.val( saida.val() + uf + "\n");
-                });
-                return false;
-            });
-        });
+        estadosEntrada
+            .addEventListener('keypress', evt => {
+                // evt.preventDefault();
+
+                const queries = estadosEntrada.value.split('\n');
+
+                estadosSaida.value = queries.map(conversor).join('\n');
+            })
+
     </script>
 </body>
 </html>
