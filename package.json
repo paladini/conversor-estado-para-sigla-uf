@@ -1,0 +1,34 @@
+{
+  "name": "conversor-estado-para-sigla-uf",
+  "version": "1.0.0",
+  "description": "Um simples conversor de nomes de estados para siglas de UF. Suporta conversão em lote.",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf dist",
+    "clean:hard": "npm run clean && rimraf node_modules",
+    "prebuild": "npm run clean",
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paladini/conversor-estado-para-sigla-uf.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/paladini/conversor-estado-para-sigla-uf/issues"
+  },
+  "homepage": "https://github.com/paladini/conversor-estado-para-sigla-uf#readme",
+  "dependencies": {
+    "fuse.js": "^3.2.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "lodash.camelcase": "^4.3.0",
+    "rimraf": "^2.6.2",
+    "webpack": "^3.10.0"
+  }
+}
