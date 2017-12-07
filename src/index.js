@@ -34,3 +34,22 @@ export const converterEstado = (() => {
     haystack
       .find(el => normalize(needle) === el[0])[1];
 })();
+
+
+// Faz uma fuzzy search pelo nome do estado
+export const closest = (() => {
+  const options = {
+    shouldSort: true,
+    threshold: 0.6,
+    location: 0,
+    distance: 100,
+    maxPatternLength: 32,
+    minMatchCharLength: 1,
+  };
+
+  const fuse = new Fuse(NOMES, options);
+
+  return needle => fuse
+      .search(needle)
+      .map(i => UF[NOMES[i]])[0];
+})();
